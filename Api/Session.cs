@@ -457,7 +457,7 @@ namespace KoenZomers.Tado.Api
         /// </summary>
         /// <param name="homeId">Id of the home to query</param>
         /// <returns>The configured zones</returns>
-        public async Task<Entities.Zone[]> GetZones(int homeId)
+        public async Task<Entities.Zone[]> GetZones(long homeId)
         {
             EnsureAuthenticatedSession();
 
@@ -470,7 +470,7 @@ namespace KoenZomers.Tado.Api
         /// </summary>
         /// <param name="homeId">Id of the home to query</param>
         /// <returns>The configured devices</returns>
-        public async Task<Entities.Device[]> GetDevices(int homeId)
+        public async Task<Entities.Device[]> GetDevices(long homeId)
         {
             EnsureAuthenticatedSession();
 
@@ -483,7 +483,7 @@ namespace KoenZomers.Tado.Api
         /// </summary>
         /// <param name="homeId">Id of the home to query</param>
         /// <returns>The connected mobile devices</returns>
-        public async Task<Entities.MobileDevice.Item[]> GetMobileDevices(int homeId)
+        public async Task<Entities.MobileDevice.Item[]> GetMobileDevices(long homeId)
         {
             EnsureAuthenticatedSession();
 
@@ -497,7 +497,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="homeId">Id of the home to query</param>
         /// <param name="mobileDeviceId">Id of the mobile device to query</param>
         /// <returns>The settings of the connected mobile device</returns>
-        public async Task<Entities.MobileDevice.Settings> GetMobileDeviceSettings(int homeId, int mobileDeviceId)
+        public async Task<Entities.MobileDevice.Settings> GetMobileDeviceSettings(long homeId, int mobileDeviceId)
         {
             EnsureAuthenticatedSession();
 
@@ -510,7 +510,7 @@ namespace KoenZomers.Tado.Api
         /// </summary>
         /// <param name="homeId">Id of the home to query</param>
         /// <returns>The installations</returns>
-        public async Task<Entities.Installation[]> GetInstallations(int homeId)
+        public async Task<Entities.Installation[]> GetInstallations(long homeId)
         {
             EnsureAuthenticatedSession();
 
@@ -523,7 +523,7 @@ namespace KoenZomers.Tado.Api
         /// </summary>
         /// <param name="homeId">Id of the home to query</param>
         /// <returns>The state of the home</returns>
-        public async Task<Entities.HomeState> GetHomeState(int homeId)
+        public async Task<Entities.HomeState> GetHomeState(long homeId)
         {
             EnsureAuthenticatedSession();
 
@@ -537,7 +537,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="homeId">Id of the home to query</param>
         /// <param name="zoneId">Id of the zone to query</param>
         /// <returns>The state of the zone</returns>
-        public async Task<Entities.State> GetZoneState(int homeId, int zoneId)
+        public async Task<Entities.State> GetZoneState(long homeId, long zoneId)
         {
             EnsureAuthenticatedSession();
 
@@ -551,11 +551,18 @@ namespace KoenZomers.Tado.Api
         /// <param name="homeId">Id of the home to query</param>
         /// <param name="zoneId">Id of the zone to query</param>
         /// <returns>The summarized state of the zone</returns>
-        public async Task<Entities.ZoneSummary> GetSummarizedZoneState(int homeId, int zoneId)
+        public async Task<Entities.ZoneSummary> GetSummarizedZoneState(long homeId, long zoneId)
         {
             EnsureAuthenticatedSession();
 
             var response = await GetMessageReturnResponse<Entities.ZoneSummary>(new Uri(TadoApiBaseUrl, $"homes/{homeId}/zones/{zoneId}/overlay"), HttpStatusCode.OK);
+            return response;
+        }
+        public async Task<Entities.DayReport> GetZoneDayReport(long homeId, long zoneId, DateTime date)
+        {
+            EnsureAuthenticatedSession();
+
+            var response = await GetMessageReturnResponse<Entities.DayReport>(new Uri(TadoApiBaseUrl, $"homes/{homeId}/zones/{zoneId}/dayReport?date={date.ToString("yyyy-MM-dd")}"), HttpStatusCode.OK);
             return response;
         }
 
@@ -564,7 +571,7 @@ namespace KoenZomers.Tado.Api
         /// </summary>
         /// <param name="homeId">Id of the home to query</param>
         /// <returns>The current weater at the home</returns>
-        public async Task<Entities.Weather> GetWeather(int homeId)
+        public async Task<Entities.Weather> GetWeather(long homeId)
         {
             EnsureAuthenticatedSession();
 
@@ -577,7 +584,7 @@ namespace KoenZomers.Tado.Api
         /// </summary>
         /// <param name="homeId">Id of the home to query</param>
         /// <returns>The home details</returns>
-        public async Task<Entities.House> GetHome(int homeId)
+        public async Task<Entities.House> GetHome(long homeId)
         {
             EnsureAuthenticatedSession();
 
@@ -590,7 +597,7 @@ namespace KoenZomers.Tado.Api
         /// </summary>
         /// <param name="homeId">Id of the home to query</param>
         /// <returns>The users with access</returns>
-        public async Task<Entities.User[]> GetUsers(int homeId)
+        public async Task<Entities.User[]> GetUsers(long homeId)
         {
             EnsureAuthenticatedSession();
 
@@ -604,7 +611,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="homeId">Id of the home to query</param>
         /// <param name="zoneId">Id of the zone to query</param>
         /// <returns>The capabilities of the zone</returns>
-        public async Task<Entities.Capability> GetZoneCapabilities(int homeId, int zoneId)
+        public async Task<Entities.Capability> GetZoneCapabilities(long homeId, long zoneId)
         {
             EnsureAuthenticatedSession();
 
@@ -618,7 +625,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="homeId">Id of the home to query</param>
         /// <param name="zoneId">Id of the zone to query</param>
         /// <returns>The early start setting of the zone</returns>
-        public async Task<Entities.EarlyStart> GetEarlyStart(int homeId, int zoneId)
+        public async Task<Entities.EarlyStart> GetEarlyStart(long homeId, long zoneId)
         {
             EnsureAuthenticatedSession();
 
@@ -634,7 +641,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="temperature">Temperature to set the zone to</param>
         /// <returns>The summarized new state of the zone</returns>
         [Obsolete("SetTemperatureCelcius is deprecated, please rewrite your code to use SetHeatingTemperatureCelcius instead")]
-        public async Task<Entities.ZoneSummary> SetTemperatureCelsius(int homeId, int zoneId, double temperature)
+        public async Task<Entities.ZoneSummary> SetTemperatureCelsius(long homeId, long zoneId, double temperature)
         {
             return await SetHeatingTemperatureCelsius(homeId, zoneId, temperature);
         }
@@ -646,7 +653,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="zoneId">Id of the zone to set the temperature of</param>
         /// <param name="temperature">Temperature to set the zone to</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SetHeatingTemperatureCelsius(int homeId, int zoneId, double temperature)
+        public async Task<Entities.ZoneSummary> SetHeatingTemperatureCelsius(long homeId, long zoneId, double temperature)
         {
             return await SetHeatingTemperatureCelcius(homeId, zoneId, temperature, Enums.DurationModes.UntilNextManualChange);
         }
@@ -661,7 +668,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <returns>The summarized new state of the zone</returns>
         [Obsolete("SetTemperatureCelcius is deprecated, please rewrite your code to use SetHeatingTemperatureCelcius instead")]
-        public async Task<Entities.ZoneSummary> SetTemperatureCelcius(int homeId, int zoneId, double temperature, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SetTemperatureCelcius(long homeId, long zoneId, double temperature, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             return await SetHeatingTemperatureCelcius(homeId, zoneId, temperature, durationMode, timer);
         }
@@ -675,7 +682,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="durationMode">Defines the duration for which the heating will be switched to the provided temperature</param>
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SetHeatingTemperatureCelcius(int homeId, int zoneId, double temperature, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SetHeatingTemperatureCelcius(long homeId, long zoneId, double temperature, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             return await SetTemperature(homeId, zoneId, temperature, null, Enums.DeviceTypes.Heating, durationMode, timer);
         }
@@ -688,7 +695,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="durationMode">Defines the duration for which the heating will be switched to the provided temperature</param>
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SetHotWaterTemperatureCelcius(int homeId, double temperatureCelcius, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SetHotWaterTemperatureCelcius(long homeId, double temperatureCelcius, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             // Tado Hot Water is zone 0
             return await SetTemperature(homeId, 0, temperatureCelcius, null, Enums.DeviceTypes.HotWater, durationMode, timer);
@@ -702,7 +709,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="durationMode">Defines the duration for which the heating will be switched to the provided temperature</param>
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SetHotWaterTemperatureFahrenheit(int homeId, double temperatureFahrenheit, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SetHotWaterTemperatureFahrenheit(long homeId, double temperatureFahrenheit, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             // Tado Hot Water is zone 0
             return await SetTemperature(homeId, 0, null, temperatureFahrenheit, Enums.DeviceTypes.HotWater, durationMode, timer);
@@ -719,7 +726,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <param name="deviceType">Type of Tado device to switch on</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SetTemperature(int homeId, int zoneId, double? temperatureCelcius, double? temperatureFahrenheit, Enums.DeviceTypes deviceType, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SetTemperature(long homeId, long zoneId, double? temperatureCelcius, double? temperatureFahrenheit, Enums.DeviceTypes deviceType, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             // If using Timer mode but not providing a timer duration, switch it to manual
             if (durationMode == Enums.DurationModes.Timer && timer == null)
@@ -774,7 +781,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="temperature">Temperature to set the zone to</param>
         /// <returns>The summarized new state of the zone</returns>
         [Obsolete("SetTemperatureFahrenheit is deprecated, please rewrite your code to use SetHeatingTemperatureFahrenheit instead")]
-        public async Task<Entities.ZoneSummary> SetTemperatureFahrenheit(int homeId, int zoneId, double temperature)
+        public async Task<Entities.ZoneSummary> SetTemperatureFahrenheit(long homeId, long zoneId, double temperature)
         {
             return await SetHeatingTemperatureFahrenheit(homeId, zoneId, temperature);
         }
@@ -786,7 +793,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="zoneId">Id of the zone to set the temperature of</param>
         /// <param name="temperature">Temperature to set the zone to</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SetHeatingTemperatureFahrenheit(int homeId, int zoneId, double temperature)
+        public async Task<Entities.ZoneSummary> SetHeatingTemperatureFahrenheit(long homeId, long zoneId, double temperature)
         {
             return await SetHeatingTemperatureFahrenheit(homeId, zoneId, temperature, Enums.DurationModes.UntilNextManualChange);
         }
@@ -801,7 +808,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <returns>The summarized new state of the zone</returns>
         [Obsolete("SetTemperatureFahrenheit is deprecated, please rewrite your code to use SetHeatingTemperatureFahrenheit instead")]
-        public async Task<Entities.ZoneSummary> SetTemperatureFahrenheit(int homeId, int zoneId, double temperature, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SetTemperatureFahrenheit(long homeId, long zoneId, double temperature, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             return await SetHeatingTemperatureFahrenheit(homeId, zoneId, temperature, durationMode, timer);
         }
@@ -815,7 +822,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="durationMode">Defines the duration for which the heating will be switched to the provided temperature</param>
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SetHeatingTemperatureFahrenheit(int homeId, int zoneId, double temperature, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SetHeatingTemperatureFahrenheit(long homeId, long zoneId, double temperature, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             return await SetTemperature(homeId, zoneId, null, temperature, Enums.DeviceTypes.Heating, durationMode, timer);
         }
@@ -826,7 +833,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="homeId">Id of the home to switch the heating off in</param>
         /// <param name="zoneId">Id of the zone to switch the heating off in</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SwitchHeatingOff(int homeId, int zoneId)
+        public async Task<Entities.ZoneSummary> SwitchHeatingOff(long homeId, long zoneId)
         {
             return await SwitchHeatingOff(homeId, zoneId, Enums.DurationModes.UntilNextManualChange);
         }
@@ -839,7 +846,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="durationMode">Defines the duration for which the temperature will remain switched off</param>
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SwitchHeatingOff(int homeId, int zoneId, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SwitchHeatingOff(long homeId, long zoneId, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             return await SetTemperature(homeId, zoneId, null, null, Enums.DeviceTypes.Heating, durationMode, timer);
         }
@@ -851,7 +858,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="durationMode">Defines the duration for which the temperature will remain switched off</param>
         /// <param name="timer">Only applicapble if for durationMode Timer has been chosen. In that case it allows providing for how long the duration should be.</param>
         /// <returns>The summarized new state of the zone</returns>
-        public async Task<Entities.ZoneSummary> SwitchHotWaterOff(int homeId, Enums.DurationModes durationMode, TimeSpan? timer = null)
+        public async Task<Entities.ZoneSummary> SwitchHotWaterOff(long homeId, Enums.DurationModes durationMode, TimeSpan? timer = null)
         {
             return await SetTemperature(homeId, 0, null, null, Enums.DeviceTypes.HotWater, durationMode, timer);
         }
@@ -863,7 +870,7 @@ namespace KoenZomers.Tado.Api
         /// <param name="zoneId">Id of the zone to switch the heating off in</param>
         /// <param name="enabled">True to enable EarlyStart or False to disable it</param>
         /// <returns>The new EarlyStart mode of the zone</returns>
-        public async Task<Entities.EarlyStart> SetEarlyStart(int homeId, int zoneId, bool enabled)
+        public async Task<Entities.EarlyStart> SetEarlyStart(long homeId, long zoneId, bool enabled)
         {
             EnsureAuthenticatedSession();
 

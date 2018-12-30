@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Api\Converters\CallForHeatDataIntervalTypeConverter.cs" Link="CallForHeatDataIntervalTypeConverter.cs" />
+    <Compile Include="..\Api\Converters\DeviceTypeConverter.cs" Link="DeviceTypeConverter.cs" />
+    <Compile Include="..\Api\Converters\DurationModeConverter.cs" Link="DurationModeConverter.cs" />
+    <Compile Include="..\Api\Converters\PowerStatesConverter.cs" Link="PowerStatesConverter.cs" />
+    <Compile Include="..\Api\Converters\WeatherStateConverter.cs" Link="WeatherStateConverter.cs" />
+    <Compile Include="..\Api\Entities\ActivityDataPoints.cs" Link="ActivityDataPoints.cs" />
+    <Compile Include="..\Api\Entities\Address.cs" Link="Address.cs" />
+    <Compile Include="..\Api\Entities\Capability.cs" Link="Capability.cs" />
+    <Compile Include="..\Api\Entities\Characteristics.cs" Link="Characteristics.cs" />
+    <Compile Include="..\Api\Entities\ConnectionState.cs" Link="ConnectionState.cs" />
+    <Compile Include="..\Api\Entities\ContactDetails.cs" Link="ContactDetails.cs" />
+    <Compile Include="..\Api\Entities\DayReport.cs" Link="DayReport.cs" />
+    <Compile Include="..\Api\Entities\DazzleMode.cs" Link="DazzleMode.cs" />
+    <Compile Include="..\Api\Entities\Device.cs" Link="Device.cs" />
+    <Compile Include="..\Api\Entities\EarlyStart.cs" Link="EarlyStart.cs" />
+    <Compile Include="..\Api\Entities\Geolocation.cs" Link="Geolocation.cs" />
+    <Compile Include="..\Api\Entities\HeatingPower.cs" Link="HeatingPower.cs" />
+    <Compile Include="..\Api\Entities\Home.cs" Link="Home.cs" />
+    <Compile Include="..\Api\Entities\HomeState.cs" Link="HomeState.cs" />
+    <Compile Include="..\Api\Entities\House.cs" Link="House.cs" />
+    <Compile Include="..\Api\Entities\Humidity.cs" Link="Humidity.cs" />
+    <Compile Include="..\Api\Entities\InsideTemperature.cs" Link="InsideTemperature.cs" />
+    <Compile Include="..\Api\Entities\Installation.cs" Link="Installation.cs" />
+    <Compile Include="..\Api\Entities\Link.cs" Link="Link.cs" />
+    <Compile Include="..\Api\Entities\MobileDevice\BearingFromHome.cs" Link="BearingFromHome.cs" />
+    <Compile Include="..\Api\Entities\MobileDevice\Details.cs" Link="Details.cs" />
+    <Compile Include="..\Api\Entities\MobileDevice\Item.cs" Link="Item.cs" />
+    <Compile Include="..\Api\Entities\MobileDevice\Location.cs" Link="Location.cs" />
+    <Compile Include="..\Api\Entities\MobileDevice\Settings.cs" Link="Settings.cs" />
+    <Compile Include="..\Api\Entities\MountingState.cs" Link="MountingState.cs" />
+    <Compile Include="..\Api\Entities\OpenWindowDetection.cs" Link="OpenWindowDetection.cs" />
+    <Compile Include="..\Api\Entities\OutsideTemperature.cs" Link="OutsideTemperature.cs" />
+    <Compile Include="..\Api\Entities\Overlay.cs" Link="Overlay.cs" />
+    <Compile Include="..\Api\Entities\Precision.cs" Link="Precision.cs" />
+    <Compile Include="..\Api\Entities\SensorDataPoints.cs" Link="SensorDataPoints.cs" />
+    <Compile Include="..\Api\Entities\Session.cs" Link="Session.cs" />
+    <Compile Include="..\Api\Entities\Setting.cs" Link="Setting.cs" />
+    <Compile Include="..\Api\Entities\SolarIntensity.cs" Link="SolarIntensity.cs" />
+    <Compile Include="..\Api\Entities\State.cs" Link="State.cs" />
+    <Compile Include="..\Api\Entities\Temperature.cs" Link="Temperature.cs" />
+    <Compile Include="..\Api\Entities\Temperatures.cs" Link="Temperatures.cs" />
+    <Compile Include="..\Api\Entities\TemperatureSteps.cs" Link="TemperatureSteps.cs" />
+    <Compile Include="..\Api\Entities\Termination.cs" Link="Termination.cs" />
+    <Compile Include="..\Api\Entities\User.cs" Link="User.cs" />
+    <Compile Include="..\Api\Entities\Weather.cs" Link="Weather.cs" />
+    <Compile Include="..\Api\Entities\WeatherState.cs" Link="WeatherState.cs" />
+    <Compile Include="..\Api\Entities\Zone.cs" Link="Zone.cs" />
+    <Compile Include="..\Api\Entities\ZoneSummary.cs" Link="ZoneSummary.cs" />
+    <Compile Include="..\Api\Enums\CallForHeatDataIntervalTypes.cs" Link="CallForHeatDataIntervalTypes.cs" />
+    <Compile Include="..\Api\Enums\DeviceTypes.cs" Link="DeviceTypes.cs" />
+    <Compile Include="..\Api\Enums\DurationModes.cs" Link="DurationModes.cs" />
+    <Compile Include="..\Api\Enums\PowerStates.cs" Link="PowerStates.cs" />
+    <Compile Include="..\Api\Enums\TerminationTypes.cs" Link="TerminationTypes.cs" />
+    <Compile Include="..\Api\Enums\WeatherStates.cs" Link="WeatherStates.cs" />
+    <Compile Include="..\Api\Exceptions\RequestFailedException.cs" Link="RequestFailedException.cs" />
+    <Compile Include="..\Api\Exceptions\SessionAuthenticationFailedException.cs" Link="SessionAuthenticationFailedException.cs" />
+    <Compile Include="..\Api\Exceptions\SessionNotAuthenticatedException.cs" Link="SessionNotAuthenticatedException.cs" />
+    <Compile Include="..\Api\Helpers\QueryStringBuilder.cs" Link="QueryStringBuilder.cs" />
+    <Compile Include="..\Api\Session.cs" Link="Base\Session.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Base\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+</Project>

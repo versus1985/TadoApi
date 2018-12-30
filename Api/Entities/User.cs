@@ -7,8 +7,8 @@ namespace KoenZomers.Tado.Api.Entities
     /// </summary>
     public class User
     {
-        public partial class Welcome
-        {
+        //public partial class Welcome
+        //{
             [JsonProperty("name")]
             public string Name { get; set; }
 
@@ -29,6 +29,6 @@ namespace KoenZomers.Tado.Api.Entities
 
             [JsonProperty("mobileDevices")]
             public MobileDevice.Item[] MobileDevices { get; set; }
-        }
+        //}
     }
 }
